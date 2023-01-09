@@ -57,8 +57,7 @@ public class LikeCustomRepositoryImpl implements LikeCustomRepository {
                 .fetchOne();
     }
 
-
-    // 전체목록
+    // 좋아요한 보육원 목록을 가져옵니다.
     @Override
     public List<LikeDTO> findSchoolLiked (Pageable pageable, Long peopleId){
         return jpaQueryFactory.select(new QLikeDTO(

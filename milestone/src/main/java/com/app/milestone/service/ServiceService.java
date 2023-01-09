@@ -30,6 +30,7 @@ public class ServiceService {
     private final FileRepository fileRepository;
     private final DonationService donationService;
 
+    /*=======================================황지수==========================================*/
     //    방문횟수 랭킹
     public List<Ranking> donationVisitRanking() {
         List<Ranking> arRanking = new ArrayList<>();
@@ -70,7 +71,7 @@ public class ServiceService {
     }
 
 
-    //    관리자 페이지=======================================================
+    //    관리자 페이지 정서림=======================================================
 
     public Page<ServiceDTO> serviceListSearch(Integer page, String keyword) {
         if (page == null) page = 0;

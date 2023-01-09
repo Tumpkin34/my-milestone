@@ -1,3 +1,7 @@
+/*
+ * 황지수
+ * */
+
 package com.app.milestone.repository;
 
 import com.app.milestone.domain.FileDTO;
@@ -32,7 +36,7 @@ public class FileCustomRepositoryImpl implements FileCustomRepository {
                 .fetchOne();
     }
 
-    //    사진 전체 조회
+    //    보육원 사진 전체 조회
     public List<FileDTO> findByUserId(Long userId) {
         return jpaQueryFactory.select(new QFileDTO(
                 file.fileName,

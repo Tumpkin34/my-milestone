@@ -29,16 +29,19 @@ public class AlarmService {
     private final PeopleRepository peopleRepository;
     private final AlarmRepository alarmRepository;
 
+
+    /*==============================황지수=========================*/
     //    안읽은 알람
     public List<AlarmDTO> showNoneCheckAlaram(Long userId) {
-//        String type = "";
+//        세션에 저장된 회원번호의 타입을 저장한다.
         String type = userRepository.findById(userId).get().getClass().getSimpleName().toLowerCase();
+//        읽지 않은 알람을 타입에 맞춰 조회한다.
         List<AlarmDTO> alarmDTOList = alarmRepository.findNoneCheckAlarmByType(userId, type);
+//        반복문을 돌려 알람에 타입에 따라 닉네임을 넣어줄지 보육원이름을 넣어줄지 알맞은 이름과 번호를 넣어준다.
         for (AlarmDTO alarmDTO : alarmDTOList) {
             if (!type.equals("people")) {
                 alarmDTO.setName(peopleRepository.findById(alarmDTO.getGiverId()).get().getPeopleNickname());
             } else {
-                log.info("==========================asd==================" + alarmDTO.getGiverId());
                 alarmDTO.setName(schoolRepository.findById(alarmDTO.getGiverId()).get().getSchoolName());
             }
             alarmDTO.setPhoneNumber(userRepository.findById(alarmDTO.getGiverId()).get().getUserPhoneNumber());
@@ -46,6 +49,8 @@ public class AlarmService {
         return alarmDTOList;
     }
 
+
+    /*==========================박해준=========================*/
     //    개인 알람 관리
     public Page<AlarmDTO> peopleAlarmList(Long userId, Integer page) {
         if (page == null) page = 0;

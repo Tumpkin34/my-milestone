@@ -1,3 +1,7 @@
+/*
+ * 황지수
+ * */
+
 package com.app.milestone.controller.file;
 
 import com.app.milestone.domain.FileDTO;
@@ -102,6 +106,7 @@ public class FileController {
         return new ResponseEntity<>(resource, header, HttpStatus.OK);
     }
 
+//    마이페이지-보육원 등록페이지에서 썸네일 작업을 하기위해 만들었다.
     @GetMapping("/schoolImg")
     public List<FileDTO> schoolImg(HttpServletRequest request) {
         HttpSession session = request.getSession();

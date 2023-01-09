@@ -30,7 +30,7 @@ public class MoneyService {
     private final FileRepository fileRepository;
     private final DonationService donationService;
 
-    //====================황지수====================
+    //====================================황지수===========================================
     //    전체 기부금 랭킹
     //  기부금랭킹을 받아 각 등수에 해당하는 회원의 정보를 넣어 돌려준다.
     public List<Ranking> donationMoneyRanking() {
@@ -49,7 +49,6 @@ public class MoneyService {
         return arRanking;
     }
 
-    //====================황지수====================
     //  보육원 하나에 대한 기부랭킹
     //  보육원 하나에 대한 기부랭킹을 받아 각 등수에 해당하는 회원의 정보를 넣어 돌려준다.
     public List<MoneyDTO> moneyDonationRankingForOneSchool(Long userId) {
@@ -66,7 +65,6 @@ public class MoneyService {
         return moneyDTOS;
     }
 
-    //====================황지수====================
     //    최근 기부
     //  최근기부한 목록을 받아와 회원의 프로필사진 정보와 함께 돌려준다.
     public List<MoneyDTO> recentDonationList(Long userId) {
@@ -77,7 +75,6 @@ public class MoneyService {
         return list;
     }
 
-    //====================황지수====================
     //    결제
     //  결제정보를 받아와 테이블에 저장한다. 저장시 상대측에 알람을 보내야 하기에 알람테이블에 값을 넣고 각 회원의 기부카운트를 다시 세어주어 증가
     @Transactional
@@ -99,7 +96,7 @@ public class MoneyService {
     }
 
 
-//    관리자 페이지=======================================================
+//    관리자 페이지 정서림=======================================================
 
     //    최신순, 금액 큰 순
     public Page<MoneyDTO> moneyListSearch(Integer page, String keyword) {

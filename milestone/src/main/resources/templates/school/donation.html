@@ -122,6 +122,7 @@
 </script>
 <script th:inline="javascript">
     // 보육원 정보
+    // *toLocaleString('ko-KR') : 숫자 세자리 마다 ,를 찍기 위해 사용되었습니다.
     function schoolInfo(schoolDTO) {
         $('#schoolName').html(schoolDTO.schoolName)
         $('.schoolAddress').html(schoolDTO.schoolAddress)
@@ -134,6 +135,7 @@
         $('.schoolImg').children().attr("src", `/file/display?fileName=` + schoolDTO.files[0].filePath + `/` + schoolDTO.files[0].fileUuid + `_` + schoolDTO.files[0].fileName)
     }
 
+    //input태그로 저장해둔 보육원 아이디로 보육원 정보를 가져와 화면에 반영합니다.
     getSchoolInfo($('#userId').val(), schoolInfo)
 
     //===================결제+===================

@@ -1,3 +1,7 @@
+/*
+ * 황지수
+ * */
+
 package com.app.milestone.controller.index;
 
 import com.app.milestone.domain.SessionManager;
@@ -15,25 +19,21 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/main")
 public class IndexController {
     private final SchoolService schoolService;
-    private final PeopleService peopleService;
     private final MoneyService moneyService;
     private final TalentService talentService;
     private final ServiceService serviceService;
-    private final FileService fileService;
-    private final SessionManager sessionManager;
 
+//    메인페이지 컨트롤러
     @GetMapping("")
-    public void main(HttpSession session, Model model) {
-//        HttpSession session = request.getSession();
-        Long userId = (Long) session.getAttribute("userId");
-//        도움이 필요한 보육원
-//        model.addAttribute("fileDTO", fileService.showProfile(userId));
+    public void main(Model model) {
+//        기부금 랭킹 정보를 가져온다.
         model.addAttribute("moneys", moneyService.donationMoneyRanking());
+//        방문기부 횟수 랭킹 정보를 가져온다.
         model.addAttribute("services", serviceService.donationVisitRanking());
+//        재능기부 횟수 랭킹 정보를 가져온다.
         model.addAttribute("talents", talentService.donationTalentRanking());
+//        도움이 필요한 보육원정보를 가져온다.
         model.addAttribute("schools", schoolService.needHelpList());
-        if (userId != null) {
-            model.addAttribute("fileDTO", fileService.showProfile(userId));
-        }
+
     }
 }

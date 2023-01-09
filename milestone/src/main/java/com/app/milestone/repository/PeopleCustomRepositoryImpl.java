@@ -25,6 +25,7 @@ import static com.app.milestone.entity.QSchool.school;
 public class PeopleCustomRepositoryImpl implements PeopleCustomRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
+    /*=====================황지수=======================*/
     // 개인 한 명정보 조회
     @Override
     public PeopleDTO findInfoById(Long userId) {

@@ -63,21 +63,6 @@ public class MainController {
         return "redirect:/main/main";
     }
 
-    @GetMapping("main")
-    public void main(HttpSession session, Model model) {
-//        HttpSession session = request.getSession();
-        Long userId = (Long) session.getAttribute("userId");
-//        도움이 필요한 보육원
-//        model.addAttribute("fileDTO", fileService.showProfile(userId));
-        model.addAttribute("moneys", moneyService.donationMoneyRanking());
-        model.addAttribute("services", serviceService.donationVisitRanking());
-        model.addAttribute("talents", talentService.donationTalentRanking());
-        model.addAttribute("schools", schoolService.needHelpList());
-        if (userId != null) {
-            model.addAttribute("fileDTO", fileService.showProfile(userId));
-        }
-    }
-
     //박해준
     //    로그인
     @PostMapping("/login")
@@ -85,7 +70,6 @@ public class MainController {
         // getSession(true) 를 사용하면 처음 들어온 사용자도 세션이 만들어지기 때문에 false로 받음
         HttpSession session = request.getSession(false);
         if (session == null) {
-            log.info("null 들어옴");
             return "main";
         }
 

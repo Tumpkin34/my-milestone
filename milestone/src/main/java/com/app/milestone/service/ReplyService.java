@@ -1,3 +1,7 @@
+/*
+* 황지수
+* */
+
 package com.app.milestone.service;
 
 import com.app.milestone.domain.ReplyDTO;
@@ -28,7 +32,7 @@ public class ReplyService {
     private final SchoolRepository schoolRepository;
     private final FileRepository fileRepository;
 
-    //    추가
+    //    댓글 추가
     @Transactional
     public void register(Long userId, ReplyDTO replyDTO) {
         User user = userRepository.findById(userId).get();
@@ -38,7 +42,7 @@ public class ReplyService {
         reply.changePeople(user);
     }
 
-    //    조회
+    //    댓글 조회
     public Page<ReplyDTO> showAll(Integer page, Long userId) {
         if (page == null) page = 0;
         Pageable pageable = PageRequest.of(0, (page + 1) * 10);
@@ -46,8 +50,6 @@ public class ReplyService {
         for (ReplyDTO replyDTO : list) {
             Optional<School> optionalSchool = schoolRepository.findById(replyDTO.getUserId());
             Optional<People> optionalPeople = peopleRepository.findById(replyDTO.getUserId());
-            log.info("댓글 =====================" + schoolRepository.findById(replyDTO.getUserId()));
-            log.info("댓글 =====================" + peopleRepository.findById(replyDTO.getUserId()).isPresent());
             if(optionalSchool.isPresent()){
                 replyDTO.setSchoolName(optionalSchool.get().getSchoolName());
             }
@@ -55,31 +57,19 @@ public class ReplyService {
                 replyDTO.setPeopleNickName(optionalPeople.get().getPeopleNickname());
             }
 
-//            if (school != null) {
-//                replyDTO.setSchoolName(school.getSchoolName());
-//            }
-//            if (people != null) {
-//                replyDTO.setPeopleNickName(people.getPeopleNickname());
-//            }
-
             replyDTO.setFile(fileRepository.findProfileByUserId(replyDTO.getUserId()));
         }
         Page<ReplyDTO> replys = new PageImpl<>(list, pageable, replyRepository.countBySchoolId(userId));
         return replys;
     }
 
-//    //    댓글 개수
-//    public Long replyCount(Long userId) {
-//        return replyRepository.countBySchoolId(userId);
-//    }
-
-    //    수정
+    //    댓글 수정
     @Transactional
     public void modify(ReplyDTO replyDTO) {
         replyRepository.findById(replyDTO.getReplyId()).get().update(replyDTO.getReplyContent());
     }
 
-    //    삭제
+    //    댓글 삭제
     public void remove(Long replyId) {
         replyRepository.deleteById(replyId);
     }

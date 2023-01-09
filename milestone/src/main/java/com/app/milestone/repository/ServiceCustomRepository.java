@@ -8,9 +8,11 @@ import java.util.List;
 
 public interface ServiceCustomRepository {
     //    ===============황지수===============
+//    방문 기부 랭킹
     public List<Tuple> sortByVisitRank();
+//    중복 신청 확인
     public Long checkOverlap(Long userId, ServiceDTO serviceDTO);
-    //    ===============황지수===============
+    //    ===============/황지수===============
     //    개인 일정 조회
     public List<ServiceDTO> findService(Pageable pageable, Long peopleId);
     public List<ServiceDTO> findVisitDate(Long peopleId);

@@ -31,7 +31,7 @@ public class LoginController {
         String password = googleJoinService.loginInfo(code) + "-google";
         User user = googleJoinSupportService.PeopleDuplicated(password);
         if (user == null) {
-            return new RedirectView("/main/main?login=false");
+            return new RedirectView("/main?login=false");
         } else {
             Long userId = user.getUserId();
 
@@ -44,7 +44,7 @@ public class LoginController {
                 session.setAttribute("type", "school");
             }
         }
-        return new RedirectView("/main/main");
+        return new RedirectView("/main");
     }
 
 
@@ -55,7 +55,7 @@ public class LoginController {
         String password = naverService.getNaverProfileByToken(token).get(0) + "-naver";
         User user = googleJoinSupportService.PeopleDuplicated(password);
         if (user == null) {
-            return new RedirectView("/main/main?login=false");
+            return new RedirectView("/main?login=false");
         } else {
             Long userId = user.getUserId();
 
@@ -68,7 +68,7 @@ public class LoginController {
                 session.setAttribute("type", "school");
             }
         }
-        return new RedirectView("/main/main");
+        return new RedirectView("/main");
     }
 
     @GetMapping("/naver-logout")
@@ -78,7 +78,7 @@ public class LoginController {
         naverService.logoutNaver(token);
         session.invalidate();
 
-        return new RedirectView("/main/main");
+        return new RedirectView("/main");
     }
 
 //    //    로그인페이지
@@ -102,7 +102,7 @@ public class LoginController {
     @GetMapping("/logout-google")
     public RedirectView googleLogout(HttpSession session) {
         session.invalidate();
-        return new RedirectView("/main/main");
+        return new RedirectView("/main");
     }
 
 //    //    로그인
@@ -189,7 +189,7 @@ public class LoginController {
         }
 
 //        로그인 성공하면 main페이지로 보내준다
-        return "redirect:/main/main";
+        return "redirect:/main";
     }
 
     //    로그아웃
@@ -204,7 +204,7 @@ public class LoginController {
             session.invalidate();
         }
 //        로그아웃 성공 하면 main페이지로 보내준다
-        return "redirect:/main/main";
+        return "redirect:/main";
     }
 
     //    로그아웃
@@ -217,7 +217,7 @@ public class LoginController {
 //            invalidate 세션을 없애고 세션에 속해있는 값들을 모두 없앤다.
             session.invalidate();
         }
-        return "redirect:/main/main";
+        return "redirect:/main";
     }
 
 }

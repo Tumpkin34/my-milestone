@@ -29,6 +29,36 @@ public class TalentCustomRepositoryImpl implements TalentCustomRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
+    /*===================================================황지수==========================================================*/
+    //  재능기부 랭킹 정렬
+
+    @Override
+    public List<Tuple> sortBytalentRank() {
+        List<Tuple> tuples = new ArrayList<>();
+        Tuple temp = null;
+
+        tuples = jpaQueryFactory.select(talent.talentAbleDate.count(), talent.people.userId)
+                .from(talent)
+                .groupBy(people.userId)
+                .fetch();
+
+//        sortTuples
+        for (int i = 0; i < tuples.size(); i++) {
+            for (int j = 0; j < tuples.size(); j++) {
+                String icash = tuples.get(i).get(0, Long.class) + "";
+                String jcash = tuples.get(j).get(0, Long.class) + "";
+                Long longIcash = Long.valueOf(icash);
+                Long longJcash = Long.valueOf(jcash);
+                if (longIcash >= longJcash) {
+                    temp = tuples.get(i);
+                    tuples.set(i, tuples.get(j));
+                    tuples.set(j, temp);
+                }
+            }
+        }
+        return tuples;
+    }
+
     /*========================================김의엽===========================================================*/
     // 재능기부 목록 (가능일자 ASC)
     @Override
@@ -171,37 +201,6 @@ public class TalentCustomRepositoryImpl implements TalentCustomRepository {
                 .where(talent.people.userId.eq(peopleId))
                 .orderBy(talent.talentAbleDate.asc())
                 .fetchOne();
-    }
-
-
-    /*=============================================================================================================*/
-    //  재능기부 랭킹 정렬
-
-    @Override
-    public List<Tuple> sortBytalentRank() {
-        List<Tuple> tuples = new ArrayList<>();
-        Tuple temp = null;
-
-        tuples = jpaQueryFactory.select(talent.talentAbleDate.count(), talent.people.userId)
-                .from(talent)
-                .groupBy(people.userId)
-                .fetch();
-
-//        sortTuples
-        for (int i = 0; i < tuples.size(); i++) {
-            for (int j = 0; j < tuples.size(); j++) {
-                String icash = tuples.get(i).get(0, Long.class) + "";
-                String jcash = tuples.get(j).get(0, Long.class) + "";
-                Long longIcash = Long.valueOf(icash);
-                Long longJcash = Long.valueOf(jcash);
-                if (longIcash >= longJcash) {
-                    temp = tuples.get(i);
-                    tuples.set(i, tuples.get(j));
-                    tuples.set(j, temp);
-                }
-            }
-        }
-        return tuples;
     }
 
     /*============================================김의엽=============================================================*/

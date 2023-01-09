@@ -143,9 +143,10 @@
     // 처음 목록 가져오기
     show();
 
-    //이전 페이지 감지
+    //이전 페이지 감지 했을 경우 0.1초후
     window.onpageshow = function (e) {
         if (e.persisted) {
+            //내가 좋아요 누른 보육원을 찾아 0.1초후 클릭합니다.(보육원 목록을 띄우거나하는 작업을 기다려줍니다.)
             setTimeout(() => getLikeSchoolList1(clickLikeBtn), 100)
         }
     }
@@ -166,21 +167,16 @@
         }
     })
 
-    //==========================페이징============================
+    //==========================페이징 처리============================
 
     let pageInfo;
 
-    // DB에서 조회된 보육원의 정보들을 화면에 쏴줌
+    // DB에서 조회된 보육원의 정보들을 화면에 반영
     function getList(schoolDTO) {
         let text = "";
-        console.log(schoolDTO)
-
-        console.log(schoolDTO.content.length)
 
         pageInfo = schoolDTO;
         schoolDTO.content.forEach(school => {
-            console.log(school.files)
-            console.log(school.files[0])
             text += `<article>`
             text += `<span class="schoolImg">`
             if(school.files.length == 0){
@@ -236,11 +232,13 @@
             text += `</article>`
         })
 
+        //검색결과가 없을 경우 화면에 반영됩니다.
         if (schoolDTO.content.length == 0) {
             $('.noneSearch').children().first().text("'" + searchFromMain + "'")
             $('.noneSearchWrap').show()
             $(".schoolListItem").html(text)
             $pagingBtnFlex.html(text);
+        //    검색결과가 있을 경우 화면에 반영됩니다.
         } else {
             $('.noneSearchWrap').hide()
             $(".schoolListItem").html(text)
@@ -338,10 +336,6 @@
         $(this).css('color', '#9a9ba7');
     })
 
-    // window.onresize = function () {
-    //     document.location.reload();
-    // };
-
     //    보육원 상세 이동
     $(".schoolList").on('click', '.donationButton', function (e) {
         e.preventDefault();
@@ -369,8 +363,6 @@
             }
         })
     }
-
-    //
 
 </script>
 </html>

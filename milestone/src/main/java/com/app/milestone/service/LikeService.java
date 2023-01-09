@@ -31,9 +31,9 @@ public class LikeService {
     public final PeopleRepository peopleRepository;
     public final LikeRepository likeRepository;
     public final FileRepository fileRepository;
-
+    //    =================================황지수================================
     //    ============================좋아요=========================
-    //    내가 누른 좋아요
+    //    내가 누른 좋아요를 가져옵니다.
     public List<Long> likeSchoolList(Long userId) {
         List<Long> arUserId = new ArrayList<>();
         List<Like> likes = likeRepository.findByPeopleUserId(userId);
@@ -43,7 +43,7 @@ public class LikeService {
         return arUserId;
     }
 
-    //    좋아요 누름
+    //    좋아요 누름 기능입니다.
     public Long likeSchool(Long userId, Long sessionId) {
         School school = schoolRepository.findById(userId).get();
         People people = peopleRepository.findById(sessionId).get();
@@ -51,13 +51,13 @@ public class LikeService {
         return likeRepository.save(like).getLikeId();
     }
 
-    //    좋아요 취소
+    //    좋아요 취소 기능입니다.
     @Transactional
     public void cancelLikeSchool(Long userId, Long sessionId) {
         likeRepository.deleteByPeopleIdAndSchoolId(sessionId,userId);
     }
 
-    //    좋아요 개수
+    //    좋아요 개수를 가져옵니다.
     public Long likeCount(Long userId) {
         return likeRepository.countBySchoolUserId(userId);
     }

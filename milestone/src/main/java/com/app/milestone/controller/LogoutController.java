@@ -30,6 +30,6 @@ public class LogoutController {
             session.invalidate();
         }
         log.info("카카오 로그아웃 성공");
-        return "redirect:/main/main";
+        return "redirect:/main";
     }
 }

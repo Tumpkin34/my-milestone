@@ -22,7 +22,4 @@ public interface UserCustomRepository {
 
     public User OAuthIdFind(String password);
 
-    /*황지수*/
-//    public Long countByUserEmail(String userEmail);
-    /*/황지수*/
 }

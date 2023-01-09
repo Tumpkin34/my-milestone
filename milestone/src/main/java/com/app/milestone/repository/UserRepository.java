@@ -8,6 +8,8 @@ import java.util.Optional;
 
 @Component
 public interface UserRepository extends JpaRepository<User, Long>, UserCustomRepository {
+    /*===============황지수=================*/
+//    마이페이지 정보수정에 필요한 이메일 중복검사
     Optional<User> findByUserEmail(String userEmail);
 
 }

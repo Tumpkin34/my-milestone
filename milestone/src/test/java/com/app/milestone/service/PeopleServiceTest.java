@@ -31,7 +31,7 @@ public class PeopleServiceTest {
     @Test
     public void likeSchoolListTest() {
         Long sessionId = 105L;
-        peopleService.likeSchoolList(sessionId).forEach(o -> log.info("" + o));
+//        peopleService.likeSchoolList(sessionId).forEach(o -> log.info("" + o));
     }
 
     //    좋아요 누름
@@ -40,7 +40,7 @@ public class PeopleServiceTest {
 //        List<Long> userIds = new ArrayList<>();
 //        userIds.add(5L);
 //        userIds.add(105L);
-        peopleService.likeSchool(5L, 105L);
+//        peopleService.likeSchool(5L, 105L);
     }
 
 //    //    기부금 랭킹

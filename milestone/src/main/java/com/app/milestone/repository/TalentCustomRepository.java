@@ -10,9 +10,11 @@ import java.util.List;
 // customRepository쓰는이유는 만약 서비스중에서 하나를  Mybatis로 사용하고 싶으면 customRepository를 만들어서 사용한다.
 
 public interface TalentCustomRepository {
+//    ========================황지수====================
 //    재능기부 랭킹
     public List<Tuple> sortBytalentRank();
 
+//    =========================김의엽========================
     //페이징 및 검색
     public List<TalentDTO> findAllByTalentAbleDate (Pageable pageable, Search search);
 

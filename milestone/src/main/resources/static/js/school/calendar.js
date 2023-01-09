@@ -1,3 +1,7 @@
+/*
+* 황지수
+* */
+
 /* 달력 헤드 */
 const $prevBtn = $('.prevMonth');
 const $nextBtn = $('.nextMonth');

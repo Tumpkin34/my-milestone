@@ -59,7 +59,8 @@ public class PeopleService {
         peopleRepository.findById(userId).get().updatePassword(passwordDTO);
     }
 
-    //    개인회원 한 명의 정보
+    /*=============================황지수==========================*/
+    //    개인회원 한 명의 정보를 가져옵니다.
     public PeopleDTO onesInfo(Long userId) {
         PeopleDTO peopleDTO = peopleRepository.findInfoById(userId);
         log.info("======================================userId====================" + userId);
@@ -67,34 +68,6 @@ public class PeopleService {
         log.info("==========================================================");
         return peopleDTO;
     }
-
-    //    ============================좋아요=========================
-    //    내가 누른 좋아요
-    public List<Long> likeSchoolList(Long sessionId) {
-        List<Long> arUserId = new ArrayList<>();
-        List<Like> likes = likeRepository.findByPeopleUserId(sessionId);
-        for (Like like : likes) {
-            arUserId.add(like.getSchool().getUserId());
-        }
-        return arUserId;
-    }
-
-    //    좋아요 누름
-    public Long likeSchool(Long userId, Long sessionId) {
-        School school = schoolRepository.findById(userId).get();
-        People people = peopleRepository.findById(sessionId).get();
-        Like like = new Like(school, people);
-        return likeRepository.save(like).getLikeId();
-    }
-
-    //    좋아요 개수
-    public Long likeCount(Long userId) {
-        return likeRepository.countBySchoolUserId(userId);
-    }
-
-
-
-
 
     /*==========================정서림===========================*/
     //      전체목록 및 검색목록

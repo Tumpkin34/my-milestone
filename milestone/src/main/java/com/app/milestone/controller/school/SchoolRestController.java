@@ -1,3 +1,7 @@
+/*
+ * 황지수
+ * */
+
 package com.app.milestone.controller.school;
 
 import com.app.milestone.domain.*;

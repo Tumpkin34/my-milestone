@@ -1,5 +1,8 @@
-package com.app.milestone.controller.ranking;
+/*
+ * 황지수
+ * */
 
+package com.app.milestone.controller.ranking;
 
 import com.app.milestone.entity.People;
 import com.app.milestone.entity.Service;
@@ -23,6 +26,7 @@ public class RankingController {
     private final TalentService talentService;
     private final PeopleService peopleService;
 
+//    종합 기부 랭킹 정보를 가져온다.
     @GetMapping("/ranking")
     public void ranking(Model model) {
         model.addAttribute("moneys", moneyService.donationMoneyRanking());

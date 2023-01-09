@@ -29,8 +29,27 @@ public class TalentService {
     private final PeopleRepository peopleRepository;
     private final FileRepository fileRepository;
     private final DonationService donationService;
-    
-    
+
+    /*=========================================황지수=======================================*/
+    //    ===================================기부 랭킹====================================
+    //    재능기부 횟수 랭킹
+    public List<Ranking> donationTalentRanking() {
+        List<Ranking> arRanking = new ArrayList<>();
+        List<Tuple> rankingInfo = talentRepository.sortBytalentRank();
+        for (Tuple tuple : rankingInfo) {
+            Ranking ranking = new Ranking();
+            String peopleNickname = peopleRepository.findById(tuple.get(1, Long.TYPE)).get().getPeopleNickname();
+            FileDTO fileDTO = fileRepository.findProfileByUserId(tuple.get(1, Long.TYPE));
+            ranking.setFile(fileDTO);
+            ranking.setPeopleNickname(peopleNickname);
+            ranking.setUserId(tuple.get(1, Long.TYPE));
+            ranking.setRankingItem(tuple.get(0, Long.TYPE));
+            arRanking.add(ranking);
+        }
+        return arRanking;
+    }
+
+    /*====================================김의엽==========================================*/
     //재능기부 목록 조회
     //페이지객체는 list가 가지고있지 않은 realEnd(마지막페이지) total구할수있다(총갯수)
     //현재 페이지가 첫페이지인지 마지막 페이지인지 boolean으로 리턴을 하는 메소드가 있다.
@@ -73,24 +92,6 @@ public class TalentService {
 
     /*=================================================================*/
 
-    //    ===================================기부 랭킹====================================
-    //    재능기부 횟수 랭킹
-    public List<Ranking> donationTalentRanking() {
-        List<Ranking> arRanking = new ArrayList<>();
-        List<Tuple> rankingInfo = talentRepository.sortBytalentRank();
-        for (Tuple tuple : rankingInfo) {
-            Ranking ranking = new Ranking();
-            String peopleNickname = peopleRepository.findById(tuple.get(1, Long.TYPE)).get().getPeopleNickname();
-            FileDTO fileDTO = fileRepository.findProfileByUserId(tuple.get(1, Long.TYPE));
-            ranking.setFile(fileDTO);
-            ranking.setPeopleNickname(peopleNickname);
-            ranking.setUserId(tuple.get(1, Long.TYPE));
-            ranking.setRankingItem(tuple.get(0, Long.TYPE));
-            arRanking.add(ranking);
-        }
-        return arRanking;
-    }
-
     public Page<TalentDTO> searchedTalentList(Integer page, Search search) {
         if (page == null) page = 0;
         Pageable pageable = PageRequest.of(page, 7);
@@ -105,6 +106,7 @@ public class TalentService {
 
         return talents;
     }
+
     /*====================================================================================================================*/
     //  재능기부 신청하기 -> 해당 도네이션 아이디로
     public TalentDTO findByDonationId(Long donationId) {
@@ -149,6 +151,6 @@ public class TalentService {
 
     //   재능기부 보육원 로그인 => 신청하기
     public Talent selectDonation(TalentDTO talentDTO) {
-       return talentRepository.findById(talentDTO.getDonationId()).get();
+        return talentRepository.findById(talentDTO.getDonationId()).get();
     }
 }

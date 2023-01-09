@@ -22,6 +22,13 @@ public class UserService {
     private final PeopleRepository peopleRepository;
     private final LoginDTO loginDTO;
 
+    /*=========================황지수========================*/
+//    마이페이지에서 정보수정에 필요한 이메일 중복 검사입니다.
+    public Long checkEmail(String userEmail) {
+        return userRepository.findByUserEmail(userEmail).get().getUserId();
+    }
+    /*===========================/황지수=========================*/
+
     //  박해준
     //    로그인
     public Long login(LoginDTO loginDTO) {
@@ -34,12 +41,6 @@ public class UserService {
     public List<User> userList(Pageable pageable) {
         return userRepository.findByCreatedDate(pageable);
     }
-
-    /*황지수*/
-    public Long checkEmail(String userEmail) {
-        return userRepository.findByUserEmail(userEmail).get().getUserId();
-    }
-    /*/황지수*/
 
     //  박해준
 //    비밀번호 일치 확인
